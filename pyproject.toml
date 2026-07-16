@@ -1,0 +1,58 @@
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "payment-service"
+version = "2.0.0"
+description = "Async payment processing microservice"
+authors = []
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0.0"
+fastapi = "0.135.2"
+uvicorn = { version = "0.42.0", extras = ["standard"] }
+dependency-injector = "4.49.0"
+pydantic = "2.12.5"
+pydantic-settings = "2.13.1"
+sqlalchemy = "2.0.48"
+asyncpg = "0.31.0"
+alembic = "1.18.4"
+faststream = { version = "0.6.7", extras = ["rabbit", "cli"] }
+httpx = "0.28.1"
+structlog = "25.5.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "0.15.8"
+pre-commit = "4.5.1"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "S",
+    "B",
+    "A",
+    "C4",
+    "PT",
+    "SIM",
+    "TCH",
+]
+ignore = ["S101", "S311"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Header",
+    "faststream.Context",
+    "faststream.Depends",
+    "dependency_injector.wiring.Provide",
+]
